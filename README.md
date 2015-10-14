@@ -34,10 +34,10 @@ A Single Page App needs a way of responding to user navigation. In order to perf
     * Go to `index.html` and uncomment the angular-route script.
     * Add an `ng-route` attribute to the `div` on `index.html#23`.
 2. Configure your routes:
-    * In `app.js`, we need to add the `ng-route` module:
+    * In `app.js`, we need to add the `ngRoute` module:
 
         ``` javascript
-            var app = angular.module('wineApp', ['ng-route']);
+            var app = angular.module('wineApp', ['ngRoute']);
         ```
 
     * Next, we need to add our first route:
