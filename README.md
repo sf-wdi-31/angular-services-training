@@ -35,8 +35,13 @@ A Single Page App needs a way of responding to user navigation. In order to perf
     * Add an `ng-route` attribute to the `div` on `index.html#23`.
 2. Configure your routes:
     * In `app.js`, we need to add the `ng-route` module:
-        * `var app = angular.module('wineApp', ['ng-route']);`
+
+        ``` javascript
+            var app = angular.module('wineApp', ['ng-route']);
+        ```
+
     * Next, we need to add our first route:
+
         ``` javascript
             app.config(function($routeProvider){
               $routeProvider
@@ -56,6 +61,7 @@ A Single Page App needs a way of responding to user navigation. In order to perf
 
 5. Set up a controller:
     * It's time to attach a template to a specific controller, all we have to do is modify our route so that it looks like this:
+
         ``` javascript
             app.config(function($routeProvider){
               $routeProvider
@@ -66,7 +72,9 @@ A Single Page App needs a way of responding to user navigation. In order to perf
                 })
             })
         ```
+
     * Now let's add a single value to `WineIndexCtrl` (in `app.js`):
+
         ``` javascript
             app.controller('WinesIndexCtrl', function($scope){
               console.log("Wine Index")
