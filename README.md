@@ -56,7 +56,7 @@ A Single Page App needs a way of responding to user navigation. In order to perf
     * You should see "Home!"
 
 4. Use a template file instead of a string:
-    * Change `template: 'Home!'` to `templateUrl: '/templates/wines-index.html`
+    * Change `template: 'Home!'` to `templateUrl: '/templates/wines-index.html'`
     * Refresh, you should see the content of `/templates/wines-index.html`.
 
 5. Set up a controller:
