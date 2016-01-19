@@ -33,12 +33,31 @@ app.controller('BooksIndexCtrl', ['$scope', function ($scope) {
   $scope.books = allBooks;
 }]);
 
-app.controller('BooksShowCtrl', ['$scope', '$routeParams', '$filter',
-  function ($scope, $routeParams, $filter) {
+app.controller('BooksShowCtrl', ['$scope', '$routeParams', '$location', '$filter',
+  function ($scope, $routeParams, $location, $filter) {
     var bookId = $routeParams.id;
-    foundBooks = $filter('filter')(allBooks, { _id: bookId }, true);
+    var foundBooks = $filter('filter')(allBooks, { _id: bookId }, true);
     if (foundBooks.length > 0) {
       $scope.book = foundBooks[0];
+    } else {
+      $location.path('/');
     }
+
+    $scope.updateBook = function(updatedBook) {
+      if (foundBooks.length > 0) {
+        var book = foundBooks[0];
+        book.title = updatedBook.title;
+        book.author = updatedBook.author;
+        book.image = updatedBook.image;
+        book.releaseDate = updatedBook.releaseDate;
+      }
+      $location.path('/');
+    };
+
+    $scope.deleteBook = function(book) {
+      var bookIndex = allBooks.indexOf(book);
+      allBooks.splice(bookIndex, 1);
+      $location.path('/');
+    };
   }
 ]);
