@@ -8,7 +8,7 @@ In this lab, you'll be creating a simple library app to keep track of books. The
 
 When a user goes to `/`, they should see a list of books (`books#index`). When a user goes to `/books/:id`, they should see a single book (`books#show`).
 
-Your data (a list of books) lives inside `allBooks.js`. This afternoon, you'll learn how to retreive this data from an external API to perform all CRUD operations, but for now, you'll work with this sample book data.
+Your data (a list of books) lives inside `allBooks.js`. This afternoon, you'll learn how to retrieve this data from an external API to perform all CRUD operations, but for now, you'll work with this sample book data.
 
 ## Getting Started
 
@@ -101,7 +101,7 @@ app.config(function($routeProvider, $locationProvider)  {
 
 Now instead of linking to `/#/books/1424`, you can link to `/books/1424`.
 
-## Book Show Challege
+## Book Show Challenge
 
 To set up a `books#show` route, you need to first build a URL for each book with the `id` parameter.
 
