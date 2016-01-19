@@ -160,4 +160,8 @@ Now that you have `routeParams` set up, can you use `bookId` to find the specifi
   }
   ```
 
-<!-- 2. Edit and Delete -->
+<!-- 2. Redirect in `show` if book not found -->
+
+<!-- 3. Delete (from `show`, with redirect) -->
+
+<!-- 4. Edit -->
