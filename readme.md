@@ -160,8 +160,14 @@ Now that you have `routeParams` set up, can you use `bookId` to find the specifi
   }
   ```
 
-<!-- 2. Redirect in `show` if book not found -->
+2. **Redirecting:** In the `BooksShowCtrl`, redirect to the homepage (`/`), if the book is not found (i.e. the route contains a book id that doesn't exist). **Hint:** Look up Angular's `$location` service.
 
-<!-- 3. Delete (from `show`, with redirect) -->
+3. **Deleting a Book:** On the `books#show` page, add a button for the user to `delete` the book. You will need:
+  * An `ng-click` directive to listen for clicks on the button.
+  * A function in the `BooksShowCtrl` to remove the individual book from the `allBooks` sample data.
+  * A redirect to the homepage (`/`) once the book is removed.
 
-<!-- 4. Edit -->
+4. **Editing a Book:** On the `books#show` page, add a button for the user to `edit` the book. You will need:
+  * An `ng-click` directive to listen for clicks on the button (when the user clicks the button, an `edit` form should show).
+  * An `ng-submit` event on the `edit` form.
+  * A function in the `BooksShowCtrl` to update the individual book in the `allBooks` sample data.
