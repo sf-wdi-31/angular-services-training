@@ -110,7 +110,7 @@ For each of your books on the `books#index` page, add a link:
 ```html
 <!-- templates/books/index.html.erb -->
 
-<h5><a ng-href="/books/{{book.id}}">{{book.title}}</a></h5>
+<h5><a ng-href="/books/{{book._id}}">{{book.title}}</a></h5>
 ```
 
 When a user navigates to `/books/:id`, you want to display the book with the matching id. First, update the route:
