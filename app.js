@@ -33,6 +33,12 @@ app.controller('BooksIndexCtrl', ['$scope', function ($scope) {
   $scope.books = allBooks;
 }]);
 
-app.controller('BooksShowCtrl', ['$scope', function ($scope) {
-  $scope.booksShowTest = 'Connected to BooksShowCtrl';
-}]);
+app.controller('BooksShowCtrl', ['$scope', '$routeParams', '$filter',
+  function ($scope, $routeParams, $filter) {
+    var bookId = $routeParams.id;
+    foundBooks = $filter('filter')(allBooks, { _id: bookId }, true);
+    if (foundBooks.length > 0) {
+      $scope.book = foundBooks[0];
+    }
+  }
+]);

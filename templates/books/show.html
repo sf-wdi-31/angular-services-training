@@ -1,2 +1,11 @@
-<h1>Welcome to the Books Show Page!</h1>
-<h2>{{booksShowTest}}</h2>
+<h2>{{book.title}}</h2>
+<hr>
+<div class="row">
+	<div class="col-xs-6">
+		<img ng-src="{{book.image}}" class="img-responsive">
+	</div>
+	<div class="col-xs-6">
+		<p><strong>Author:</strong> {{book.author}}</p>
+		<p><strong>Release Date:</strong> {{book.releaseDate}}</p>
+	</div>
+</div>

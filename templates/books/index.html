@@ -5,9 +5,10 @@
 		<div class="col-xs-4">
 			<img ng-src="{{book.image}}" class="img-responsive">
 		</div>
-		<div class="col-xs8">
+		<div class="col-xs-8">
 			<a ng-href="/books/{{book._id}}">{{book.title}}</a>
-			<p>by {{book.author}}</p>
+			<br><br>
+			<p class="small">Written by {{book.author}}</p>
 			<p class="small">Released {{book.releaseDate}}</p>
 		</div>
 	</div>
