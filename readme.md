@@ -14,7 +14,7 @@ Your data (a list of books) lives inside `allBooks.js`. This afternoon, you'll l
 
 1. Fork this repo, and clone it into your `develop` folder on your local machine.
 2. Change directories into `angular-routing-lab`.
-3. Run `budo app.js --open` from the Terminal to start your server and open your app in the browser.
+3. Run `budo app.js --open --pushstate` from the Terminal to start your server and open your app in the browser.
 
 ## ngRoute
 
@@ -48,7 +48,7 @@ A single page app needs a way of responding to user navigation. In order to perf
     ```
 
 3. Fire up your server:
-  * If you haven't already, run `budo app.js --open` from the Terminal (make sure you're in your application's root directory).
+  * If you haven't already, run `budo app.js --open --pushstate` from the Terminal (make sure you're in your application's root directory).
   * Your app should be running on `10.0.1.10:9966` (or similar), and you should see `Home!`.
 
 4. Use a template file instead of a string:
