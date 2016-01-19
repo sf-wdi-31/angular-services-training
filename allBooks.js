@@ -1,9 +1,9 @@
 /*
- * Temporary mock JSON
- * Eventually you will retrieve data like this using AJAX
+ * Temporary sample data for books
+ * Eventually you'll retreive this data from an API
  */
 
-books = [
+allBooks = [
   {
     _id: "569d962bdadd431100b37c9b",
     title: "Around the World in 80 Days",

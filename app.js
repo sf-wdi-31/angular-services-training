@@ -4,18 +4,11 @@ var app = angular.module('libraryApp', []);
 // ROUTES //
 ////////////
 
-app.config(function($routeProvider, $locationProvider){
-
+app.config(function($routeProvider, $locationProvider)  {
   $routeProvider
     .when('/', {
-      template: 'home'
+      template: 'Home!'
     });
-
-    // $locationProvider.html5Mode({
-    //   enabled: true,
-    //   requireBase: false
-    // });
-
 });
 
 /////////////////
@@ -23,9 +16,9 @@ app.config(function($routeProvider, $locationProvider){
 /////////////////
 
 app.controller('BooksIndexCtrl', ['$scope', function ($scope) {
-  $scope.booksIndexTest = 'Welcome to the Books Index Page';
+  $scope.booksIndexTest = 'Connected to BooksIndexCtrl';
 }]);
 
 app.controller('BooksShowCtrl', ['$scope', function ($scope) {
-  $scope.booksShowTest = 'Welcome to the Books Show Page';
+  $scope.booksShowTest = 'Connected to BooksShowCtrl';
 }]);

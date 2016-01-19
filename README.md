@@ -1,98 +1,88 @@
-##Angular Routing Lab
+# <img src="https://cloud.githubusercontent.com/assets/7833470/10899314/63829980-8188-11e5-8cdd-4ded5bcb6e36.png" height="60"> Angular Routing Lab
 
-| Objectives |
-| :--- |
-| Explore Routing in Single Page Apps |
-| Create route-specific view templates and controllers. |
-| Create RESTful Index and Show routes for a Wine resource. |
- 
-In this lab we will be working with templates and routing in angular.
+**Objective:** Practice routing in Angular using `ngRoute`.
 
-When a user goes to `/` they should see a list of wines (`wines#index`).
-When a user goes to `/wines/:id` they should see a single wine (`wines#show`).
+In this lab, you'll be creating a simple library app to keep track of books. The goal of this lab is to practice routing in Angular by:
+* creating route-specific view templates and controllers.
+* creating RESTful `index` and `show` routes for `books`.
 
-Our data (a list of wines) lives at the bottom of `app.js`. Eventually we will use AJAX to retrieve this so we can perform all CRUD operations, but for now it's hardcoded.
+When a user goes to `/`, they should see a list of books (`books#index`). When a user goes to `/books/:id`, they should see a single book (`books#show`).
 
-### Hash Parameters
-<a href="#setup">Setup</a><br/>
-<a href="#ng-route">ng-route</a><br/>
-<a href="#wine-list-challenge">Wine List Challenge</a><br/>
-<a href="#wine-show-challenge">Wine Show Challenge</a>
+Your data (a list of books) lives inside `allBooks.js`. This afternoon, you'll learn how to retreive this data from an external API to perform all CRUD operations, but for now, you'll work with this sample book data.
 
-### Setup
-* Clone this repo.
-* **Make sure to `bower install`.**
-* Note: We will need to run a local server once we start playing with routing.
-    - In the application directory run `python -m SimpleHTTPServer`.
-    - Then open your browser to "localhost:8000" (or similar).
+## Getting Started
 
-## ng-route
-A Single Page App needs a way of responding to user navigation. In order to perform "frontend routing", we need a way to capture URL changes and respond to them. For example, if the user clicks on a link to "/wines/1414", we need our Angular application to know how to respond (what templates, controllers, and resources to use). What we *don't* want to happen is for the request to reach the server.
+1. Fork this repo, and clone it into your `develop` folder on your local machine.
+2. Change directories into `angular-routing-lab`.
+3. Run `budo app.js --open` from your Terminal to start your server and open your app in the browser.
 
-1. Include `angular-route`:
-    * Run `bower install -s angular-route` in your terminal.
-    * Go to `index.html` and uncomment the angular-route script.
-    * Add an `ng-route` attribute to the `div` on `index.html#23`.
+## ngRoute
+
+A single page app needs a way of responding to user navigation. In order to perform client-side routing, your app needs a way to capture and respond to URL changes. For example, if the user clicks on a link to `/books/1414`, you need your Angular application to know how to respond (with what template and controller to use). What you *don't* want to happen is for the request to reach the server.
+
+1. Include `ngRoute`:
+  * Add the CDN for `ngRoute` in `index.html`.
+  * Add the `ng-view` directive inside Bootstrap `col-md-6` in `index.html`
+
 2. Configure your routes:
-    * In `app.js`, we need to add the `ngRoute` module:
 
-        ``` javascript
-            var app = angular.module('wineApp', ['ngRoute']);
-        ```
+  * In `app.js`, include the `ngRoute` module:
 
-    * Next, we need to add our first route:
+    ``` js
+    // app.js
 
-        ``` javascript
-            app.config(function($routeProvider){
-              $routeProvider
-                .when('/', {
-                  template: 'Home!'
-                })
-            })
-        ```
+    var app = angular.module('libraryApp', ['ngRoute']);
+    ```
+
+  * Next, add your first route:
+
+    ``` js
+    // app.js
+
+    app.config(function($routeProvider, $locationProvider) {
+      $routeProvider
+        .when('/', {
+          template: 'Home!'
+        });
+    });
+    ```
+
 3. Fire up your server:
-    * From your application directory, run `python -m SimpleHTTPServer`.
-    * Then open your browser to "localhost:8000" (or similar).
-    * You should see "Home!"
+  * From your application's root directory, run `budo app.js --open` if you haven't already.
+  * Your app should be open on `10.0.1.10:9966` (or similar), and you should see `Home!`.
 
 4. Use a template file instead of a string:
-    * Change `template: 'Home!'` to `templateUrl: '/templates/wines-index.html'`
-    * Refresh, you should see the content of `/templates/wines-index.html`.
+  * Change `template: 'Home!'` to `templateUrl: 'templates/books/index.html'`
+  * Refresh the page, and you should see the content of `templates/books/index.html`.
 
 5. Set up a controller:
-    * It's time to attach a template to a specific controller, all we have to do is modify our route so that it looks like this:
 
-        ``` javascript
-            app.config(function($routeProvider){
-              $routeProvider
-                .when('/', {
-                  // template: 'Home!',
-                  templateUrl: '/templates/wines-index.html',
-                  controller: 'WinesIndexCtrl'
-                })
-            })
-        ```
+  * It's time to attach a template to a specific controller. Modify your route so that it looks like this:
 
-    * Now let's add a single value to `WineIndexCtrl` (in `app.js`):
+    ``` js
+    // app.js
 
-        ``` javascript
-            app.controller('WinesIndexCtrl', function($scope){
-              console.log("Wine Index")
-              $scope.hello = "wine index controller is working!"
-            })
-        ```
-    * And update our template to include:
-        - `{{hello}}`
-    * When you refresh you should see: "wine index controller is working!"
+    app.config(function($routeProvider, $locationProvider)  {
+      $routeProvider
+        .when('/', {
+          // template: 'Home!'
+          templateUrl: 'templates/books/index.html',
+          controller: 'booksIndexCtrl'
+        });
+    });
+    ```
 
-### Wine List Challenge
-Can you display a list of all the wines on the wines index page? (Start by using the mock data object called `ALL_WINES` at the bottom of `app.js`).
+  * In `app.js`, there's a test variable attached to `$scope` called `booksIndexTest`. Since `templates/books/index.html` contains `{{booksIndexTest}}`, you should see the message "Connected to BooksIndexCtrl" when you refresh the page.
 
-What directive would you use to loop through a list of wines?
+### book List Challenge
 
-Can you get it working using the `WineService`, without using `ALL_WINES` directly?
-- How would you inject the `WineService` into `WineIndexCtrl`?
-- How would you query *all* of the wines?
+Can you display a list of all the books on the books index page? (Start by using the mock data object called `ALL_books` at the bottom of `app.js`).
+
+What directive would you use to loop through a list of books?
+
+Can you get it working using the `bookservice`, without using `ALL_books` directly?
+- How would you inject the `bookservice` into `bookIndexCtrl`?
+- How would you query *all* of the books?
 
 ### HTML5 Mode
 Add, or uncomment, the following in your route configuration so that we don't have to use the query hash for navigation:
@@ -103,17 +93,17 @@ Add, or uncomment, the following in your route configuration so that we don't ha
     });
 ```
 
-Now instead of linking to `#/wines/1424` we can link to "/wines/1424".
+Now instead of linking to `#/books/1424` we can link to "/books/1424".
 
-### Wine Show Challege
-To setup a `wines#show` route, we need to first figure out how to capture the id parameter in the URL.
+### book Show Challege
+To setup a `books#show` route, we need to first figure out how to capture the id parameter in the URL.
 
-For each of your wines on the `wines#index` page, let's add a link:
+For each of your books on the `books#index` page, let's add a link:
 ``` html
-    <h5><a href="/wines/{{wine.id}}">{{wine.name}}</a></h5>
+    <h5><a href="/books/{{book.id}}">{{book.name}}</a></h5>
 ```
 
-When a user navigates to `/wines/:id` we want to display the wine with the matching id!
+When a user navigates to `/books/:id` we want to display the book with the matching id!
 
 First, update the route:
 
@@ -121,28 +111,28 @@ First, update the route:
 $routeProvider
   .when('/', {
     templateUrl: 'templates/index.html',
-    controller: 'WinesIndexCtrl'
+    controller: 'booksIndexCtrl'
   })
-  .when('/wines/:id', { // the "id" parameter 
+  .when('/books/:id', { // the "id" parameter 
     templateUrl: 'templates/show.html',
-    controller: 'WinesShowCtrl'
+    controller: 'booksShowCtrl'
   })
 ```
 
-Next, we need to inject a new module into `WinesShowCtrl` called `$routeParams`:
+Next, we need to inject a new module into `booksShowCtrl` called `$routeParams`:
 
 ``` javascript
-app.controller('WinesShowCtrl', function ($scope, WineService, $routeParams) {
+app.controller('booksShowCtrl', function ($scope, bookservice, $routeParams) {
     console.log($routeParams.id);
 });
 ```
 
-Can you get it working now that you know how to grab the corret `id`? How would you display only that individual wine?
+Can you get it working now that you know how to grab the corret `id`? How would you display only that individual book?
 
 ### Stretch: Prettify
-Go crazy. Use Bootstrap to make a fancy index and show page, listing out all the wine info, and showing an image for each of them.
+Go crazy. Use Bootstrap to make a fancy index and show page, listing out all the book info, and showing an image for each of them.
 
-Here are some of the wine fields we have to work with:
+Here are some of the book fields we have to work with:
 
 ``` json
 {
@@ -155,7 +145,7 @@ Here are some of the wine fields we have to work with:
     "country": "France",
     "region": "Bordeaux",
     "price": 12,
-    "description": "Though dense and chewy, this wine does not overpower with its finely balanced depth and structure. It is a truly luxurious experience for the senses.",
+    "description": "Though dense and chewy, this book does not overpower with its finely balanced depth and structure. It is a truly luxurious experience for the senses.",
     "picture": "http://s3-us-west-2.amazonaws.com/sandboxapi/le_doyenne.jpg"
 }
 ```
