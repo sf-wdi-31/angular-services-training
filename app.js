@@ -1,4 +1,4 @@
-var app = angular.module('libraryApp', []);
+var app = angular.module('libraryApp', ['ngRoute']);
 
 ////////////
 // ROUTES //
@@ -7,7 +7,8 @@ var app = angular.module('libraryApp', []);
 app.config(function($routeProvider, $locationProvider)  {
   $routeProvider
     .when('/', {
-      template: 'Home!'
+      templateUrl: 'templates/books/index.html',
+      controller: 'BooksIndexCtrl'
     });
 });
 
