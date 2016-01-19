@@ -3,8 +3,8 @@
 **Objective:** Practice routing in Angular using `ngRoute`.
 
 In this lab, you'll be creating a simple library app to keep track of books. The goal of this lab is to practice routing in Angular by:
-* creating route-specific view templates and controllers.
-* creating RESTful `index` and `show` routes for `books`.
+* Creating route-specific view templates and controllers.
+* Creating RESTful `index` and `show` routes for `books`.
 
 When a user goes to `/`, they should see a list of books (`books#index`). When a user goes to `/books/:id`, they should see a single book (`books#show`).
 
@@ -149,7 +149,7 @@ Now that you have `routeParams` set up, can you use `bookId` to find the specifi
 
 1. **Styling:** Use Bootstrap to make fancy `index` and `show` pages, listing out all the book info, and showing an image for each of them (look up `the ngSrc` directive for displaying images). Here are some of the book fields you have to work with:
 
-  ``` json
+  ```js
   {
     _id: "569d962bdadd431100b37c9b",
     title: "Around the World in 80 Days",
