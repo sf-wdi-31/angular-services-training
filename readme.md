@@ -14,7 +14,7 @@ Your data (a list of books) lives inside `allBooks.js`. This afternoon, you'll l
 
 1. Fork this repo, and clone it into your `develop` folder on your local machine.
 2. Change directories into `angular-routing-lab`.
-3. Run `budo app.js --open` from the Terminal to start your server and open your app in the browser.
+3. Run `budo app.js --open --pushstate` from the Terminal to start your server and open your app in the browser.
 
 ## ngRoute
 
@@ -48,11 +48,11 @@ A single page app needs a way of responding to user navigation. In order to perf
     ```
 
 3. Fire up your server:
-  * If you haven't already, run `budo app.js --open` from the Terminal (make sure you're in your application's root directory).
+  * If you haven't already, run `budo app.js --open --pushstate` from the Terminal (make sure you're in your application's root directory).
   * Your app should be running on `10.0.1.10:9966` (or similar), and you should see `Home!`.
 
 4. Use a template file instead of a string:
-  * Change `template: 'Home!'` to `templateUrl: '/templates/books/index.html'`
+  * Change `template: 'Home!'` to `templateUrl: 'templates/books/index.html'`
   * Refresh the page, and you should see the content of `templates/books/index.html`.
 
 5. Set up a controller:
@@ -66,7 +66,7 @@ A single page app needs a way of responding to user navigation. In order to perf
       $routeProvider
         .when('/', {
           // template: 'Home!'
-          templateUrl: '/templates/books/index.html',
+          templateUrl: 'templates/books/index.html',
           controller: 'BooksIndexCtrl'
         });
     });
@@ -121,11 +121,11 @@ When a user navigates to `/books/:id`, you want to display the book with the mat
 app.config(function($routeProvider, $locationProvider)  {
   $routeProvider
     .when('/', {
-      templateUrl: '/templates/books/index.html',
+      templateUrl: 'templates/books/index.html',
       controller: 'BooksIndexCtrl'
     })
     .when('/books/:id', {
-      templateUrl: '/templates/books/show.html',
+      templateUrl: 'templates/books/show.html',
       controller: 'BooksShowCtrl'
     });
 });
@@ -160,4 +160,4 @@ Now that you have `routeParams` set up, can you use `bookId` to find the specifi
   }
   ```
 
-2. Edit and Delete
+<!-- 2. Edit and Delete -->
