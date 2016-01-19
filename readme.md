@@ -8,7 +8,7 @@ In this lab, you'll be creating a simple library app to keep track of books. The
 
 When a user goes to `/`, they should see a list of books (`books#index`). When a user goes to `/books/:id`, they should see a single book (`books#show`).
 
-Your data (a list of books) lives inside `allBooks.js`. This afternoon, you'll learn how to retreive this data from an external API to perform all CRUD operations, but for now, you'll work with this sample book data.
+Your data (a list of books) lives inside `allBooks.js`. This afternoon, you'll learn how to retrieve this data from an external API to perform all CRUD operations, but for now, you'll work with this sample book data.
 
 ## Getting Started
 
@@ -101,7 +101,7 @@ app.config(function($routeProvider, $locationProvider)  {
 
 Now instead of linking to `/#/books/1424`, you can link to `/books/1424`.
 
-## Book Show Challege
+## Book Show Challenge
 
 To set up a `books#show` route, you need to first build a URL for each book with the `id` parameter.
 
@@ -160,8 +160,14 @@ Now that you have `routeParams` set up, can you use `bookId` to find the specifi
   }
   ```
 
-<!-- 2. Redirect in `show` if book not found -->
+2. **Redirecting:** In the `BooksShowCtrl`, redirect to the homepage (`/`), if the book is not found (i.e. the route contains a book id that doesn't exist). **Hint:** Look up Angular's `$location` service.
 
-<!-- 3. Delete (from `show`, with redirect) -->
+3. **Deleting a Book:** On the `books#show` page, add a button for the user to `delete` the book. You will need:
+  * An `ng-click` directive to listen for clicks on the button.
+  * A function in the `BooksShowCtrl` to remove the individual book from the `allBooks` sample data.
+  * A redirect to the homepage (`/`) once the book is removed.
 
-<!-- 4. Edit -->
+4. **Editing a Book:** On the `books#show` page, add a button for the user to `edit` the book. You will need:
+  * An `ng-click` directive to listen for clicks on the button (when the user clicks the button, an `edit` form should show).
+  * An `ng-submit` event on the `edit` form.
+  * A function in the `BooksShowCtrl` to update the individual book in the `allBooks` sample data.
