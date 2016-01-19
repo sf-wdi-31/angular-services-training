@@ -14,11 +14,11 @@ Your data (a list of books) lives inside `allBooks.js`. This afternoon, you'll l
 
 1. Fork this repo, and clone it into your `develop` folder on your local machine.
 2. Change directories into `angular-routing-lab`.
-3. Run `budo app.js --open` from your Terminal to start your server and open your app in the browser.
+3. Run `budo app.js --open` from the Terminal to start your server and open your app in the browser.
 
 ## ngRoute
 
-A single page app needs a way of responding to user navigation. In order to perform client-side routing, your app needs a way to capture and respond to URL changes. For example, if the user clicks on a link to `/books/1414`, you need your Angular application to know how to respond (with what template and controller to use). What you *don't* want to happen is for the request to reach the server.
+A single page app needs a way of responding to user navigation. In order to perform client-side routing, your app needs a way to capture and respond to URL changes. For example, if the user clicks on a link to `/books/1424`, you need your Angular application to know how to respond (with what template and controller to use). What you *don't* want to happen is for the request to reach the server.
 
 1. Include `ngRoute`:
   * Add the CDN for `ngRoute` in `index.html`.
@@ -48,8 +48,8 @@ A single page app needs a way of responding to user navigation. In order to perf
     ```
 
 3. Fire up your server:
-  * From your application's root directory, run `budo app.js --open` if you haven't already.
-  * Your app should be open on `10.0.1.10:9966` (or similar), and you should see `Home!`.
+  * If you haven't already, run `budo app.js --open` from the Terminal (make sure you're in your application's root directory).
+  * Your app should be running on `10.0.1.10:9966` (or similar), and you should see `Home!`.
 
 4. Use a template file instead of a string:
   * Change `template: 'Home!'` to `templateUrl: 'templates/books/index.html'`
@@ -67,85 +67,97 @@ A single page app needs a way of responding to user navigation. In order to perf
         .when('/', {
           // template: 'Home!'
           templateUrl: 'templates/books/index.html',
-          controller: 'booksIndexCtrl'
+          controller: 'BooksIndexCtrl'
         });
     });
     ```
 
-  * In `app.js`, there's a test variable attached to `$scope` called `booksIndexTest`. Since `templates/books/index.html` contains `{{booksIndexTest}}`, you should see the message "Connected to BooksIndexCtrl" when you refresh the page.
+  * In the `BooksIndexCtrl`, there's a test variable attached to `$scope` called `booksIndexTest`. Since `templates/books/index.html` contains `{{booksIndexTest}}`, you should see the message "Connected to BooksIndexCtrl" when you refresh the page.
 
-### book List Challenge
+## Book List Challenge
 
-Can you display a list of all the books on the books index page? (Start by using the mock data object called `ALL_books` at the bottom of `app.js`).
+Can you display a list of all the books on the books index page? Remember that your sample book data is saved to a global variable called `allBooks`.
 
-What directive would you use to loop through a list of books?
+What directive would you use to loop through the list of books?
 
-Can you get it working using the `bookservice`, without using `ALL_books` directly?
-- How would you inject the `bookservice` into `bookIndexCtrl`?
-- How would you query *all* of the books?
+## HTML5 Mode
 
-### HTML5 Mode
-Add, or uncomment, the following in your route configuration so that we don't have to use the query hash for navigation:
-``` javascript
-    $locationProvider.html5Mode({
+Add the following code snippet in your route configuration to remove the query hash (`/#`) from the routes:
+
+```js
+// app.js
+
+app.config(function($routeProvider, $locationProvider)  {
+  $routeProvider
+    ...
+
+  $locationProvider
+    .html5Mode({
       enabled: true,
       requireBase: false
     });
-```
-
-Now instead of linking to `#/books/1424` we can link to "/books/1424".
-
-### book Show Challege
-To setup a `books#show` route, we need to first figure out how to capture the id parameter in the URL.
-
-For each of your books on the `books#index` page, let's add a link:
-``` html
-    <h5><a href="/books/{{book.id}}">{{book.name}}</a></h5>
-```
-
-When a user navigates to `/books/:id` we want to display the book with the matching id!
-
-First, update the route:
-
-``` javascript
-$routeProvider
-  .when('/', {
-    templateUrl: 'templates/index.html',
-    controller: 'booksIndexCtrl'
-  })
-  .when('/books/:id', { // the "id" parameter 
-    templateUrl: 'templates/show.html',
-    controller: 'booksShowCtrl'
-  })
-```
-
-Next, we need to inject a new module into `booksShowCtrl` called `$routeParams`:
-
-``` javascript
-app.controller('booksShowCtrl', function ($scope, bookservice, $routeParams) {
-    console.log($routeParams.id);
 });
 ```
 
-Can you get it working now that you know how to grab the corret `id`? How would you display only that individual book?
+Now instead of linking to `/#/books/1424`, you can link to `/books/1424`.
 
-### Stretch: Prettify
-Go crazy. Use Bootstrap to make a fancy index and show page, listing out all the book info, and showing an image for each of them.
+## Book Show Challege
 
-Here are some of the book fields we have to work with:
+To set up a `books#show` route, you need to first build a URL for each book with the `id` parameter.
 
-``` json
-{
-    "id": 1429,
-    "created_at": "2015-10-13T01:30:28.631Z",
-    "updated_at": "2015-10-13T01:30:28.631Z",
-    "name": "CHATEAU LE DOYENNE",
-    "year": "2005",
-    "grapes": "Merlot",
-    "country": "France",
-    "region": "Bordeaux",
-    "price": 12,
-    "description": "Though dense and chewy, this book does not overpower with its finely balanced depth and structure. It is a truly luxurious experience for the senses.",
-    "picture": "http://s3-us-west-2.amazonaws.com/sandboxapi/le_doyenne.jpg"
-}
+For each of your books on the `books#index` page, add a link:
+
+```html
+<!-- templates/books/index.html.erb -->
+
+<h5><a ng-href="/books/{{book.id}}">{{book.title}}</a></h5>
 ```
+
+When a user navigates to `/books/:id`, you want to display the book with the matching id. First, update the route:
+
+```js
+// app.js
+
+app.config(function($routeProvider, $locationProvider)  {
+  $routeProvider
+    .when('/', {
+      templateUrl: 'templates/books/index.html',
+      controller: 'BooksIndexCtrl'
+    })
+    .when('/books/:id', {
+      templateUrl: 'templates/books/show.html',
+      controller: 'BooksShowCtrl'
+    });
+});
+```
+
+At this point, navigate to `/books/1424` in the browser and make sure the `books#show` template and controller are working. Note that it doesn't matter that the book with an id of 1424 doesn't exist, since you haven't done anything with the book id yet!
+
+Next, inject a new module into `BooksShowCtrl` called `$routeParams`:
+
+```js
+// app.js
+
+app.controller('BooksShowCtrl', ['$scope', function ($scope, $routeParams) {
+  var bookId = $routeParams.id;
+}]);
+```
+
+Now that you have `routeParams` set up, can you use `bookId` to find the specific book in `allBooks`? How would you display only that individual book in the view?
+
+## Stretch Challenges
+
+1. **Styling:** Use Bootstrap to make fancy `index` and `show` pages, listing out all the book info, and showing an image for each of them (look up `the ngSrc` directive for displaying images). Here are some of the book fields you have to work with:
+
+  ``` json
+  {
+    _id: "569d962bdadd431100b37c9b",
+    title: "Around the World in 80 Days",
+    author: "Jules Verne",
+    image: "https://cloud.githubusercontent.com/assets/7833470/10892118/865bee3e-8156-11e5-9634-cd7bcd3d6d4f.jpg",
+    releaseDate: "January 30, 1873",
+    __v: 0
+  }
+  ```
+
+2. Edit and Delete
