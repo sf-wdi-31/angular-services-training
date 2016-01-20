@@ -22,7 +22,7 @@ A single page app needs a way of responding to user navigation. In order to perf
 
 1. Include `ngRoute`:
   * Add the CDN for `ngRoute` in `index.html`.
-  * Add the `ng-view` directive inside Bootstrap `col-md-6` in `index.html`
+  * Add the `ng-view` directive inside the Bootstrap `.col-md-6` in `index.html`
 
 2. Configure your routes:
 
@@ -39,12 +39,12 @@ A single page app needs a way of responding to user navigation. In order to perf
     ``` js
     // app.js
 
-    app.config(function($routeProvider, $locationProvider) {
+    app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
       $routeProvider
         .when('/', {
           template: 'Home!'
         });
-    });
+    }]);
     ```
 
 3. Fire up your server:
@@ -62,14 +62,14 @@ A single page app needs a way of responding to user navigation. In order to perf
     ``` js
     // app.js
 
-    app.config(function($routeProvider, $locationProvider)  {
+    app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider)  {
       $routeProvider
         .when('/', {
           // template: 'Home!'
           templateUrl: 'templates/books/index.html',
           controller: 'BooksIndexCtrl'
         });
-    });
+    }]);
     ```
 
   * In the `BooksIndexCtrl`, there's a test variable attached to `$scope` called `booksIndexTest`. Since `templates/books/index.html` contains `{{booksIndexTest}}`, you should see the message "Connected to BooksIndexCtrl" when you refresh the page.
@@ -87,7 +87,7 @@ Add the following code snippet in your route configuration to remove the query h
 ```js
 // app.js
 
-app.config(function($routeProvider, $locationProvider)  {
+app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider)  {
   $routeProvider
     ...
 
@@ -96,7 +96,7 @@ app.config(function($routeProvider, $locationProvider)  {
       enabled: true,
       requireBase: false
     });
-});
+}]);
 ```
 
 Now instead of linking to `/#/books/1424`, you can link to `/books/1424`.
@@ -118,7 +118,7 @@ When a user navigates to `/books/:id`, you want to display the book with the mat
 ```js
 // app.js
 
-app.config(function($routeProvider, $locationProvider)  {
+app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider)  {
   $routeProvider
     .when('/', {
       templateUrl: 'templates/books/index.html',
@@ -128,7 +128,7 @@ app.config(function($routeProvider, $locationProvider)  {
       templateUrl: 'templates/books/show.html',
       controller: 'BooksShowCtrl'
     });
-});
+}]);
 ```
 
 At this point, navigate to `/books/1424` in the browser and make sure the `books#show` template and controller are working. Note that it doesn't matter that the book with an id of 1424 doesn't exist, since you haven't done anything with the book id yet!
@@ -138,7 +138,7 @@ Next, inject a new module into `BooksShowCtrl` called `$routeParams`:
 ```js
 // app.js
 
-app.controller('BooksShowCtrl', ['$scope', function ($scope, $routeParams) {
+app.controller('BooksShowCtrl', ['$scope', '$routeParams', function ($scope, $routeParams) {
   var bookId = $routeParams.id;
 }]);
 ```

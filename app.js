@@ -4,7 +4,7 @@ var app = angular.module('libraryApp', ['ngRoute']);
 // ROUTES //
 ////////////
 
-app.config(function($routeProvider, $locationProvider)  {
+app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider)  {
   $routeProvider
     .when('/', {
       templateUrl: 'templates/books/index.html',
@@ -23,7 +23,7 @@ app.config(function($routeProvider, $locationProvider)  {
       enabled: true,
       requireBase: false
     });
-});
+}]);
 
 /////////////////
 // CONTROLLERS //
