@@ -22,7 +22,7 @@ A single page app needs a way of responding to user navigation. In order to perf
 
 1. Include `ngRoute`:
   * Add the CDN for `ngRoute` in `index.html`.
-  * Add the `ng-view` directive inside Bootstrap `col-md-6` in `index.html`
+  * Add the `ng-view` directive inside the Bootstrap `.col-md-6` in `index.html`
 
 2. Configure your routes:
 
