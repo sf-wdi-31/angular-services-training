@@ -4,12 +4,12 @@ var app = angular.module('libraryApp', []);
 // ROUTES //
 ////////////
 
-app.config(function($routeProvider, $locationProvider)  {
+app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider)  {
   $routeProvider
     .when('/', {
       template: 'Home!'
     });
-});
+}]);
 
 /////////////////
 // CONTROLLERS //
