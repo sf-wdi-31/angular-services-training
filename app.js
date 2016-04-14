@@ -41,13 +41,28 @@ function config (  $routeProvider,   $locationProvider  )  {
 BooksIndexController.$inject=['$http'];
 function BooksIndexController($http) {
   var vm = this;
-  vm.books = allBooks;
+  // vm.books = allBooks;
+  $http({
+    method: 'GET',
+    url: 'https://super-crud.herokuapp.com/books'
+  }).then(onBooksIndexSuccess, onError)
+
+
+  function onBooksIndexSuccess(response){
+    console.log('here\'s the get all books response data', response.data);
+    vm.books = response.data.books;
+  }
+  function onError(error){
+    console.log('there was an error: ', error);
+  }
 };
+
 
 BooksShowController.$inject=['$http', '$routeParams', '$location', '$filter'];
 function BooksShowController($http, $routeParams, $location, $filter) {
   var vm = this;
   var bookId = $routeParams.id;
+
   var foundBooks = $filter('filter')(allBooks, { _id: bookId }, true);
   if (foundBooks.length > 0) {
     this.book = foundBooks[0];

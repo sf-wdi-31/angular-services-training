@@ -6,6 +6,7 @@
 			<img ng-src="{{book.image}}" class="img-responsive">
 		</div>
 		<div class="col-xs-8">
+      {{book._id}}
 			<h5><a ng-href="/books/{{book._id}}">{{book.title}}</a></h5>
 			<br>
 			<p class="small">Written by {{book.author}}</p>
