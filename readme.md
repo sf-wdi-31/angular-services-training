@@ -12,7 +12,7 @@ When a user goes to `/`, they should see a list of all of the books in the API. 
 
 Your data (a list of books) is available at `https://super-crud.herokuapp.com/books`. You and your classmates will all be working with this database, so things might get a little crazy. If there are no books left or far too many books, feel free to reset the database by clicking [the reset button](http://super-crud.herokuapp.com/reset). Don't do this without warning your classmates though, otherwise they might be puzzled why their newly created book resources aren't appearing in the database.
 
-## Expectations:
+## Expectations
 
 Your finished product will
 
@@ -42,3 +42,7 @@ Your finished product will
 
 2. **Allow the user to edit the book image:** allow the user to change the URL for the book image.
 3. **Add filters to organize the books index page:** add a search bar to filter the books by your search, or buttons to sort them alphabetically by author name or book title.
+
+## Submission
+
+Make a pull request with a 0 - 5 rating of your comfort of the assignment, a 0 - 5 rating of your completeness on the assignment, and a note on your experience completing the lab. Make sure your pull request is going to `sf-wdi-27-28/angular-routing-lab`. *Check the base fork before you submit!*
