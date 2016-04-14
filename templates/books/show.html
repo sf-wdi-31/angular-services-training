@@ -1,33 +1,33 @@
-<h2>{{book.title}}</h2>
+<h2>{{booksShowCtrl.book.title}}</h2>
 <hr>
 <div class="row">
 	<div class="col-xs-6">
-		<img ng-src="{{book.image}}" class="img-responsive">
+		<img ng-src="{{booksShowCtrl.book.image}}" class="img-responsive">
 	</div>
 	<div class="col-xs-6">
-		<p><strong>Author:</strong> {{book.author}}</p>
-		<p><strong>Release Date:</strong> {{book.releaseDate}}</p>
+		<p><strong>Author:</strong> {{booksShowCtrl.book.author}}</p>
+		<p><strong>Release Date:</strong> {{booksShowCtrl.book.releaseDate}}</p>
 		<br>
 
 		<!-- buttons to edit/delete -->
 		<a href="#" ng-click="editForm=!editForm" class="btn btn-default">Edit <span class="glyphicon glyphicon-pencil"></span></a>&nbsp;
-		<a href="#" ng-click="deleteBook(book)" class="btn btn-default">Delete <span class="glyphicon glyphicon-trash"></span></a>
+		<a href="#" ng-click="booksShowCtrl.deleteBook(booksShowCtrl.book)" class="btn btn-default">Delete <span class="glyphicon glyphicon-trash"></span></a>
 
 		<!-- edit form -->
 		<div ng-show="editForm">
 			<br>
-	    <form ng-show="editForm" ng-submit="updateBook(book)">
+	    <form ng-show="editForm" ng-submit="booksSchowCtrl.updateBook(booksShowCtrl.book)">
 	      <div class="form-group">
-	        <input type="text" ng-model="book.title" class="form-control" placeholder="Title">
+	        <input type="text" ng-model="booksShowCtrl.book.title" class="form-control" placeholder="Title">
 	      </div>
 	      <div class="form-group">
-	        <input type="text" ng-model="book.author" class="form-control" placeholder="Author">
+	        <input type="text" ng-model="booksShowCtrl.book.author" class="form-control" placeholder="Author">
 	      </div>
 	      <div class="form-group">
-	        <input type="text" ng-model="book.image" class="form-control" placeholder="Image">
+	        <input type="text" ng-model="booksShowCtrl.book.image" class="form-control" placeholder="Image">
 	      </div>
 	      <div class="form-group">
-	        <input type="text" ng-model="book.releaseDate" class="form-control" placeholder="Release Date">
+	        <input type="text" ng-model="booksShowCtrl.book.releaseDate" class="form-control" placeholder="Release Date">
 	      </div>
 	      <input type="submit" value="Update Book" class="btn btn-default">
 	    </form>

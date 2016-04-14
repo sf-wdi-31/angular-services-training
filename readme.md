@@ -1,6 +1,9 @@
-# <img src="https://cloud.githubusercontent.com/assets/7833470/10899314/63829980-8188-11e5-8cdd-4ded5bcb6e36.png" height="60"> Angular Routing Lab
+# <img src="https://cloud.githubusercontent.com/assets/7833470/10899314/63829980-8188-11e5-8cdd-4ded5bcb6e36.png" height="60"> Angular Book App
 
-**Objective:** Practice routing in Angular using `ngRoute`.
+| **Objectives** |
+| :---- |
+| Use $http to access a RESTful API |
+| Practice routing in Angular using `ngRoute` |
 
 In this lab, you'll be creating a simple library app to keep track of books. The goal of this lab is to practice routing in Angular by:
 * Creating route-specific view templates and controllers.
@@ -47,9 +50,15 @@ A single page app needs a way of responding to user navigation. In order to perf
     }]);
     ```
 
-3. Fire up your server:
-  * If you haven't already, run `budo app.js --open --pushstate` from the Terminal (make sure you're in your application's root directory).
-  * Your app should be running on `10.0.1.10:9966` (or similar), and you should see `Home!`.
+3. Fire up a simple server to enable client-side routing:
+      Make sure you're in the application's root directory!
+      ``` bash
+      python -m SimpleHTTPServer 3000
+      # or
+      ruby -rwebrick -e 'WEBrick::HTTPServer.new(:Port => 3000, :DocumentRoot => Dir.pwd).start']
+      #or
+      budo app.js --open --pushstate
+      ```
 
 4. Use a template file instead of a string:
   * Change `template: 'Home!'` to `templateUrl: 'templates/books/index.html'`

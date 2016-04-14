@@ -1,18 +1,25 @@
-var app = angular.module('libraryApp', ['ngRoute']);
+angular.module('libraryApp', ['ngRoute'])
+       .config(config)
+       .controller('BooksIndexController', BooksIndexController)
+       .controller('BooksShowController', BooksShowController)
+
 
 ////////////
 // ROUTES //
 ////////////
 
-app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider)  {
+config.$inject = ['$routeProvider', '$locationProvider'];
+function config (  $routeProvider,   $locationProvider  )  {
   $routeProvider
     .when('/', {
       templateUrl: 'templates/books/index.html',
-      controller: 'BooksIndexCtrl'
+      controller: 'BooksIndexController',
+      controllerAs: 'booksIndexCtrl'
     })
     .when('/books/:id', {
       templateUrl: 'templates/books/show.html',
-      controller: 'BooksShowCtrl'
+      controller: 'BooksShowController',
+      controllerAs: 'booksShowCtrl'
     })
     .otherwise({
       redirectTo: '/'
@@ -23,41 +30,45 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
       enabled: true,
       requireBase: false
     });
-}]);
+};
 
 /////////////////
 // CONTROLLERS //
 /////////////////
 
-app.controller('BooksIndexCtrl', ['$scope', function ($scope) {
-  $scope.books = allBooks;
-}]);
 
-app.controller('BooksShowCtrl', ['$scope', '$routeParams', '$location', '$filter',
-  function ($scope, $routeParams, $location, $filter) {
-    var bookId = $routeParams.id;
-    var foundBooks = $filter('filter')(allBooks, { _id: bookId }, true);
-    if (foundBooks.length > 0) {
-      $scope.book = foundBooks[0];
-    } else {
-      $location.path('/');
-    }
 
-    $scope.updateBook = function(updatedBook) {
-      if (foundBooks.length > 0) {
-        var book = foundBooks[0];
-        book.title = updatedBook.title;
-        book.author = updatedBook.author;
-        book.image = updatedBook.image;
-        book.releaseDate = updatedBook.releaseDate;
-      }
-      $location.path('/');
-    };
+BooksIndexController.$inject=['$http'];
+function BooksIndexController($http) {
+  var vm = this;
+  vm.books = allBooks;
+};
 
-    $scope.deleteBook = function(book) {
-      var bookIndex = allBooks.indexOf(book);
-      allBooks.splice(bookIndex, 1);
-      $location.path('/');
-    };
+BooksShowController.$inject=['$http', '$routeParams', '$location', '$filter'];
+function BooksShowController($http, $routeParams, $location, $filter) {
+  var vm = this;
+  var bookId = $routeParams.id;
+  var foundBooks = $filter('filter')(allBooks, { _id: bookId }, true);
+  if (foundBooks.length > 0) {
+    this.book = foundBooks[0];
+  } else {
+    $location.path('/');
   }
-]);
+
+  this.updateBook = function(updatedBook) {
+    if (foundBooks.length > 0) {
+      var book = foundBooks[0];
+      book.title = updatedBook.title;
+      book.author = updatedBook.author;
+      book.image = updatedBook.image;
+      book.releaseDate = updatedBook.releaseDate;
+    }
+    $location.path('/');
+  };
+
+  this.deleteBook = function(book) {
+    var bookIndex = allBooks.indexOf(book);
+    allBooks.splice(bookIndex, 1);
+    $location.path('/');
+  };
+};
