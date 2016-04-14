@@ -62,28 +62,51 @@ BooksShowController.$inject=['$http', '$routeParams', '$location', '$filter'];
 function BooksShowController($http, $routeParams, $location, $filter) {
   var vm = this;
   var bookId = $routeParams.id;
+  $http({
+    method: 'GET',
+    url: 'https://super-crud.herokuapp.com/books/'+bookId
+  }).then(onBookShowSuccess, onError)
 
-  var foundBooks = $filter('filter')(allBooks, { _id: bookId }, true);
-  if (foundBooks.length > 0) {
-    this.book = foundBooks[0];
-  } else {
+
+  function onBookShowSuccess(response){
+    console.log('here\'s the data for book', bookId, ':', response.data);
+    vm.book = response.data;
+  }
+  function onError(error){
+    console.log('there was an error: ', error);
     $location.path('/');
   }
 
-  this.updateBook = function(updatedBook) {
-    if (foundBooks.length > 0) {
-      var book = foundBooks[0];
-      book.title = updatedBook.title;
-      book.author = updatedBook.author;
-      book.image = updatedBook.image;
-      book.releaseDate = updatedBook.releaseDate;
+  vm.updateBook = function(bookToUpdate) {
+    console.log('updating book: ', bookToUpdate);
+    $http({
+      method: 'PUT',
+      url: 'https://super-crud.herokuapp.com/books/' + bookToUpdate._id,
+      data: {
+        title : bookToUpdate.title,
+        author : bookToUpdate.author,
+        image : bookToUpdate.image,
+        releaseDate : bookToUpdate.releaseDate
+      }
+    }).then(onBookUpdateSuccess, onError);
+
+    function onBookUpdateSuccess(response){
+      console.log('here\'s the UPDATED data for book', bookId, ':', response.data);
+      vm.book = response.data;
+      $location.path('/');
     }
-    $location.path('/');
   };
 
-  this.deleteBook = function(book) {
-    var bookIndex = allBooks.indexOf(book);
-    allBooks.splice(bookIndex, 1);
-    $location.path('/');
+  vm.deleteBook = function(book) {
+    console.log('deleting book: ', book);
+    $http({
+      method: 'DELETE',
+      url: 'https://super-crud.herokuapp.com/books/' + book._id,
+    }).then(onBookDeleteSuccess, onError);
+
+    function onBookDeleteSuccess(response){
+      console.log('book delete response data:', response.data);
+      $location.path('/');
+    }
   };
 };
