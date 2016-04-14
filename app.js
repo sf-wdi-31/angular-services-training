@@ -58,8 +58,8 @@ function BooksIndexController($http) {
 };
 
 
-BooksShowController.$inject=['$http', '$routeParams', '$location', '$filter'];
-function BooksShowController($http, $routeParams, $location, $filter) {
+BooksShowController.$inject=['$http', '$routeParams'];
+function BooksShowController($http, $routeParams,) {
   var vm = this;
   var bookId = $routeParams.id;
   $http({
@@ -74,7 +74,6 @@ function BooksShowController($http, $routeParams, $location, $filter) {
   }
   function onError(error){
     console.log('there was an error: ', error);
-    $location.path('/');
   }
 
   vm.updateBook = function(bookToUpdate) {
@@ -93,7 +92,6 @@ function BooksShowController($http, $routeParams, $location, $filter) {
     function onBookUpdateSuccess(response){
       console.log('here\'s the UPDATED data for book', bookId, ':', response.data);
       vm.book = response.data;
-      $location.path('/');
     }
   };
 
@@ -106,7 +104,6 @@ function BooksShowController($http, $routeParams, $location, $filter) {
 
     function onBookDeleteSuccess(response){
       console.log('book delete response data:', response.data);
-      $location.path('/');
     }
   };
 };
