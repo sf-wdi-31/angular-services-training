@@ -8,7 +8,7 @@ function BooksShowController($http, $routeParams, $location) {
   $http({
     method: 'GET',
     url: 'https://super-crud.herokuapp.com/books/'+bookId
-  }).then(onBookShowSuccess, onError)
+  }).then(onBookShowSuccess, onError);
 
 
   function onBookShowSuccess(response){
@@ -51,4 +51,4 @@ function BooksShowController($http, $routeParams, $location) {
       $location.path('/');
     }
   };
-};
+}

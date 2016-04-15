@@ -28,4 +28,4 @@ function config (  $routeProvider,   $locationProvider  )  {
       enabled: true,
       requireBase: false
     });
-};
+}
