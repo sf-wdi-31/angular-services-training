@@ -16,7 +16,7 @@ function BooksService($http, $q) {
     $http({
       method: 'GET',
       url: 'https://super-crud.herokuapp.com/books'
-    }).then(onBooksIndexSuccess, onError)
+    }).then(onBooksIndexSuccess, onError);
 
     // we return the promise here - whenever it's complete any other .then's you attach will get run too
     return def.promise;

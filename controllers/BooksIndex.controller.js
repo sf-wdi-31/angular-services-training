@@ -1,8 +1,8 @@
 angular.module('libraryApp')
   .controller('BooksIndexController', BooksIndexController);
 
-BooksIndexController.$inject=['$http', 'BooksService'];
-function BooksIndexController($http,    BooksService) {
+BooksIndexController.$inject=['BooksService'];
+function BooksIndexController( BooksService) {
   var vm = this;
   // exports
   vm.books = BooksService.books;
