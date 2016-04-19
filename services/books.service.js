@@ -6,9 +6,9 @@ function BooksService($http, $q) {
   console.log('service');
   var self = this;  // similar to vm = this, but we're not working with a view-model here so using the 'generic' form for this closure
   self.books = [];  // we'll let getAll fill this in when it can
-  self.getAll = getAll;
+  self.getAll = index;
 
-  function getAll() {
+  function index() {
     console.log('someone requested all the books');
 
     var def = $q.defer();  // create a new 'deferred'
