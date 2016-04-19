@@ -17,7 +17,7 @@ function BooksShowController($routeParams, $location, BookService) {
 
   function getBook(id) {
     console.log('asking service for book with id', id);
-    BookService.get(id).then(function(data) {
+    BookService.show(id).then(function(data) {
       console.log('controller got data', data);
       vm.book = data;
     });

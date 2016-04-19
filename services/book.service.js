@@ -6,10 +6,10 @@ function BookService($http, $q) {
   console.log('service');
   var self = this;  // similar to vm = this, but we're not working with a view-model here so using the 'generic' form for this closure
   self.book = {};  // we'll let get fill this in when it can
-  self.get = get;
+  self.show = show;
 
 
-  function get(bookId) {
+  function show(bookId) {
     console.log('someone requested book', bookId);
     var def = $q.defer();  // create a new 'deferred'
 
