@@ -7,10 +7,10 @@ function BookService($http, $q) {
   var self = this;  // similar to vm = this, but we're not working with a view-model here so using the 'generic' form for this closure
   self.book = {};  // we'll let get fill this in when it can
   self.books = [];  // we'll let getAll fill this in when it can
-  self.query = query;
-  self.get = get;
-  self.update = update;
-  self.remove = remove;
+  self.query = query;  // get all books
+  self.get = get;     // get one book
+  self.update = update;  // update a book
+  self.remove = remove;  // delete a book
 
 
   function query() {
