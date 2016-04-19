@@ -24,15 +24,18 @@ In this lab, you'll be creating a simple library app to keep track of books.
 
 1. In your BooksShowController add the service as a dependency.
 
+  > Hey!  You just fixed update! (That one was already implemented with the service for you.)
+
 
 #### BooksShowController#getBook
 
-1. Open `BooksShow.controller.js`
 1. Refactor the `getBook` method to **NOT** use `$http`; instead use `BookService.get(id).then`.
 
 	> It might be helpful to look at the BooksIndexController or the updateBook method in this controller.
+	> The book service returns **only** the requested book when it resolves the promise.  It handles the http stuff, so you shouldn't need to dig down into a *response* object in the controller.
 	
-1. When you're done the page should still work.
+	
+1. When you're done the page should still work.  CMD+SHIFT+R
 
 #### BookService#remove &  BooksShowController#deleteBook
 
@@ -42,6 +45,12 @@ In this lab, you'll be creating a simple library app to keep track of books.
 	2. Complete the remove method.
 
 1. Update the controller to remove the final call to $http - use your fixed remove method in the BookService.
+
+1. Test everything.
+
+
+
+
 
 
 
