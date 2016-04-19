@@ -13,6 +13,11 @@ function BookService($http, $q) {
   self.remove = remove;  // delete a book
 
 
+  /*************************************************************
+  *  PLEASE COMPLETE THE REMOVE METHOD BELOW
+  *************************************************************/
+
+
   function query() {
     console.log('someone requested all the books');
     // create a new 'deferred'
@@ -130,15 +135,24 @@ function BookService($http, $q) {
 
   function remove(book) {
     console.log('deleting book: ', book);
-    var def = $q.defer();
 
-    $http({
-      method: 'DELETE',
-      url: 'https://super-crud.herokuapp.com/books/' + book._id,
-    }).then(onBookDeleteSuccess, onError);
 
-    // we return the promise here - whenever it's complete any other .then's you attach will get run too
-    return def.promise; // promise sent to "my client"
+
+    /*
+      CREATE A NEW deferred here
+    */
+
+    /*
+      TRIGGER $http REQUEST HERE
+      ATTACH THE FUNCTIONS BELOW TO HANDLE SUCCESS AND ERROR
+    */
+
+
+    /*
+      RETURN THE DEFERRED'S promise
+    */
+
+
 
 
     // note how these functions are defined within the body of another function?
@@ -147,18 +161,24 @@ function BookService($http, $q) {
     function onBookDeleteSuccess(response){
       console.log('book delete response data:', response.data, this);
       self.book = {};
-      // ok, we got data, resolve the deferred - at this point we get to choose what we send on to the controller
-      def.resolve({});  // for delete we'll send an empty object
+      /*
+        RESOLVE THE DEFERRED
+        PASS THE BOOK DOWN THE CHAIN (It's an empty object now)
+      */
+
+
     }
 
     function onError(error) {
       console.log('service reported error deleting book', book);
       self.book = {error: error};
       // oh noes!  error - reject the deferred - at this point we get to choose what we send on to the controller
-      def.reject(self.book);
+      /*
+        REJECT THE DEFERRED
+        SEND THE ERROR DOWN THE CHAIN
+      */
     }
 
   }
-
 
 }
