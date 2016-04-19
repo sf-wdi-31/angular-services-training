@@ -1,8 +1,8 @@
 angular.module('libraryApp')
-  .service('BooksService', BooksService);
+  .service('BookService', BookService);
 
-BooksService.$inject = ['$http', '$q', '$resource'];
-function BooksService($http, $q, $resource) {
+BookService.$inject = ['$http', '$q', '$resource'];
+function BookService($http, $q, $resource) {
   console.log('service');
   var self = this;  // similar to vm = this, but we're not working with a view-model here so using the 'generic' form for this closure
   self.book = {};  // we'll let get fill this in when it can
@@ -78,7 +78,7 @@ function BooksService($http, $q, $resource) {
   //   // that gives them access to variables from that function
   //   // - see lexical scope & closures https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
   //   function onBookShowSuccess(response) {
-  //     console.log('BooksService: here\'s the data for book', bookId, ':', response.data);
+  //     console.log('BookService: here\'s the data for book', bookId, ':', response.data);
   //     self.book = response.data;
   //     // ok, we got data, resolve the deferred - at this point we get to choose what we send on to the controller
   //     def.resolve(self.book);

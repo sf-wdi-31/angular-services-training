@@ -1,8 +1,8 @@
 angular.module('libraryApp')
   .controller('BooksShowController', BooksShowController);
 
-BooksShowController.$inject=['$routeParams', '$location', 'BooksService'];
-function BooksShowController($routeParams, $location, BooksService) {
+BooksShowController.$inject=['$routeParams', '$location', 'BookService'];
+function BooksShowController($routeParams, $location, BookService) {
   var vm = this;
   var bookId = $routeParams.id;
   // exports
@@ -17,7 +17,7 @@ function BooksShowController($routeParams, $location, BooksService) {
 
   function getBook(id) {
     console.log('asking service for book with id', id);
-    BooksService.get({id: id}, function(data) {
+    BookService.get({id: id}, function(data) {
       console.log('controller got data', data);
       vm.book = data;
     });
@@ -26,7 +26,7 @@ function BooksShowController($routeParams, $location, BooksService) {
 
   function updateBook(book) {
     console.log('controller updating book: ', book);
-    BooksService.update(book, onBookUpdateSuccess, onError);
+    BookService.update(book, onBookUpdateSuccess, onError);
     // OR
     // book.$update(onBookUpdateSuccess, onError);
 
@@ -42,7 +42,7 @@ function BooksShowController($routeParams, $location, BooksService) {
 
   function deleteBook(book) {
     console.log('controller deleting book: ', book);
-    BooksService.remove({id: book._id}, onBookDeleteSuccess);
+    BookService.remove({id: book._id}, onBookDeleteSuccess);
     // OR
     // book.$delete(onBookDeleteSuccess);
 
