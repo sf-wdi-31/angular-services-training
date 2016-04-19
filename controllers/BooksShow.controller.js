@@ -1,25 +1,31 @@
 angular.module('libraryApp')
   .controller('BooksShowController', BooksShowController);
 
-BooksShowController.$inject=['$http', '$routeParams', '$location'];
-function BooksShowController($http, $routeParams, $location) {
+BooksShowController.$inject=['$routeParams', '$location', 'BookService'];
+function BooksShowController($routeParams, $location, BookService) {
   var vm = this;
   var bookId = $routeParams.id;
-  $http({
-    method: 'GET',
-    url: 'https://super-crud.herokuapp.com/books/'+bookId
-  }).then(onBookShowSuccess, onError);
+  // exports
+  vm.book = {};  // initially empty, getBook will fill
+  vm.getBook = getBook;
+  vm.updateBook = updateBook;
+  vm.deleteBook = deleteBook;
+
+  // initialization
+  getBook(bookId);
 
 
-  function onBookShowSuccess(response){
-    console.log('here\'s the data for book', bookId, ':', response.data);
-    vm.book = response.data;
+  function getBook(id) {
+    console.log('asking service for book with id', id);
+    BookService.get(id).then(function(data) {
+      console.log('controller got data', data);
+      vm.book = data;
+    });
   }
-  function onError(error){
-    console.log('there was an error: ', error);
-  }
 
-  vm.updateBook = function(bookToUpdate) {
+
+  // move the rest of the $http code to the service
+  function updateBook(bookToUpdate) {
     console.log('updating book: ', bookToUpdate);
     $http({
       method: 'PUT',
@@ -37,9 +43,9 @@ function BooksShowController($http, $routeParams, $location) {
       vm.book = response.data;
       $location.path('/');
     }
-  };
+  }
 
-  vm.deleteBook = function(book) {
+  function deleteBook(book) {
     console.log('deleting book: ', book);
     $http({
       method: 'DELETE',
@@ -50,5 +56,5 @@ function BooksShowController($http, $routeParams, $location) {
       console.log('book delete response data:', response.data);
       $location.path('/');
     }
-  };
+  }
 }

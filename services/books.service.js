@@ -21,17 +21,19 @@ function BooksService($http, $q) {
     // we return the promise here - whenever it's complete any other .then's you attach will get run too
     return def.promise;
 
-    // note how these are defined within the body of getAll?  this gives them access to variables in getAll (closure)
+    // note how these are defined within the body of getAll?  this gives them access to variables in getAll
+    // see lexical scope & closures https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
     function onBooksIndexSuccess(response){
       console.log('here\'s the get all books response data from the service', response.data);
       self.books = response.data.books;
-      // ok, we got data, resolve the deferred
-      def.resolve(response.data);
+      // ok, we got data, resolve the deferred - we get to choose what we send on to the controller
+      def.resolve(self.books);
     }
     function onError(error){
       console.log('there was an error: ', error);
       self.books.error = {error: error};
-      def.reject("Failed: ", error);
+      // oh noes!  error - reject the deferred - we get to choose what we send on to the controller
+      def.reject(self.books.error);
     }
   }
 

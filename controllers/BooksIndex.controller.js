@@ -15,7 +15,7 @@ function BooksIndexController( BooksService) {
   function getBooks() {
     BooksService.getAll().then(function(data){
       console.log('here\'s the get all books response data in the controller', data);
-      vm.books = data.books;
+      vm.books = data;
     });
   }
 }
