@@ -12,7 +12,7 @@ function BooksIndexController( BookService) {
 
   // implementations
   function getBooks() {
-    BookService.getAll().then(function(data){
+    BookService.query().then(function(data){
       console.log('here\'s the books data in the controller', data);
       vm.books = data;
     });

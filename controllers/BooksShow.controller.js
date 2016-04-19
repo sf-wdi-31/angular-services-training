@@ -17,7 +17,7 @@ function BooksShowController($routeParams, $location, BookService) {
 
   function getBook(id) {
     console.log('asking service for book with id', id);
-    BookService.show(id).then(function(data) {
+    BookService.get(id).then(function(data) {
       console.log('controller got data', data);
       vm.book = data;
     });
@@ -40,7 +40,7 @@ function BooksShowController($routeParams, $location, BookService) {
 
   function deleteBook(book) {
     console.log('controller deleting book: ', book);
-    BookService.destroy(book).then(onBookDeleteSuccess);
+    BookService.remove(book).then(onBookDeleteSuccess);
 
     function onBookDeleteSuccess(book){
       console.log('controller book deleted:', book);

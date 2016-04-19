@@ -7,13 +7,13 @@ function BookService($http, $q) {
   var self = this;  // similar to vm = this, but we're not working with a view-model here so using the 'generic' form for this closure
   self.book = {};  // we'll let get fill this in when it can
   self.books = [];  // we'll let getAll fill this in when it can
-  self.getAll = index;
-  self.show = show;
+  self.query = query;
+  self.get = get;
   self.update = update;
-  self.destroy = destroy;
+  self.remove = remove;
 
 
-  function index() {
+  function query() {
     console.log('someone requested all the books');
     // create a new 'deferred'
     var def = $q.defer();
@@ -51,7 +51,7 @@ function BookService($http, $q) {
    *
    * * * * * * * * * * * * * * * */
 
-  function show(bookId) {
+  function get(bookId) {
     console.log('someone requested book', bookId);
     var def = $q.defer();  // create a new 'deferred'
 
@@ -128,7 +128,7 @@ function BookService($http, $q) {
    *
    * * * * * * * * * * * * * * * */
 
-  function destroy(book) {
+  function remove(book) {
     console.log('deleting book: ', book);
     var def = $q.defer();
 
