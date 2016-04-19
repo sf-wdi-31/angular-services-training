@@ -7,7 +7,6 @@ function BooksService($http, $q) {
   var self = this;  // similar to vm = this, but we're not working with a view-model here so using the 'generic' form for this closure
   self.books = [];  // we'll let getAll fill this in when it can
   self.getAll = getAll;
-  self.erase = erase;
 
   function getAll() {
     console.log('someone requested all the books');
@@ -34,12 +33,6 @@ function BooksService($http, $q) {
       self.books.error = {error: error};
       def.reject("Failed: ", error);
     }
-  }
-
-
-  function erase() {
-    console.log('this.books', this.books);
-    this.books.splice(1,1);
   }
 
 }

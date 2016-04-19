@@ -6,7 +6,6 @@ function BooksIndexController($http,    BooksService) {
   var vm = this;
   // exports
   vm.books = BooksService.books;
-  vm.snipe = snipe;
 
   // initialize data
   getBooks();
@@ -18,9 +17,5 @@ function BooksIndexController($http,    BooksService) {
       console.log('here\'s the get all books response data in the controller', data);
       vm.books = data.books;
     });
-  }
-  function snipe() {
-    BooksService.erase();
-    console.log('investigator found', BooksService.books);
   }
 }
