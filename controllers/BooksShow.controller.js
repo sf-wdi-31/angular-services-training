@@ -25,35 +25,26 @@ function BooksShowController($routeParams, $location, BookService) {
 
 
   // move the rest of the $http code to the service
-  function updateBook(bookToUpdate) {
-    console.log('updating book: ', bookToUpdate);
-    $http({
-      method: 'PUT',
-      url: 'https://super-crud.herokuapp.com/books/' + bookToUpdate._id,
-      data: {
-        title : bookToUpdate.title,
-        author : bookToUpdate.author,
-        image : bookToUpdate.image,
-        releaseDate : bookToUpdate.releaseDate
-      }
-    }).then(onBookUpdateSuccess, onError);
+  function updateBook(book) {
+    console.log('controller updating book: ', book);
+    BookService.update(book).then(onBookUpdateSuccess, onError);
 
-    function onBookUpdateSuccess(response){
-      console.log('here\'s the UPDATED data for book', bookId, ':', response.data);
-      vm.book = response.data;
+    function onBookUpdateSuccess(book){
+      console.log('here\'s the UPDATED data for book', book._id, ':', book);
+      vm.book = book;
       $location.path('/');
+    }
+    function onError() {
+      console.log("error updating the book");
     }
   }
 
   function deleteBook(book) {
     console.log('deleting book: ', book);
-    $http({
-      method: 'DELETE',
-      url: 'https://super-crud.herokuapp.com/books/' + book._id,
-    }).then(onBookDeleteSuccess, onError);
+    BookService.destroy(book).then(onBookDeleteSuccess);
 
-    function onBookDeleteSuccess(response){
-      console.log('book delete response data:', response.data);
+    function onBookDeleteSuccess(book){
+      console.log('book delete got:', book);
       $location.path('/');
     }
   }
