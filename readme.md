@@ -51,6 +51,9 @@ In this lab, you'll be creating a simple library app to keep track of books.
 
 
 
+## ngResource
 
+You can do the same thing with a lot less code using ngResource.  
+Check out the code for the ngResource solution and compare.  
 
 
