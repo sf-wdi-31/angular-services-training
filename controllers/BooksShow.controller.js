@@ -17,7 +17,7 @@ function BooksShowController($routeParams, $location, BooksService) {
 
   function getBook(id) {
     console.log('asking service for book with id', id);
-    BooksService.show(id).then(function(data) {
+    BooksService.get({id: id}, function(data) {
       console.log('controller got data', data);
       vm.book = data;
     });
@@ -26,7 +26,9 @@ function BooksShowController($routeParams, $location, BooksService) {
 
   function updateBook(book) {
     console.log('controller updating book: ', book);
-    BooksService.update(book).then(onBookUpdateSuccess, onError);
+    BooksService.update(book, onBookUpdateSuccess, onError);
+    // OR
+    // book.$update(onBookUpdateSuccess, onError);
 
     function onBookUpdateSuccess(book){
       console.log('controller got updated data for book ', book._id, ':', book);
@@ -40,7 +42,9 @@ function BooksShowController($routeParams, $location, BooksService) {
 
   function deleteBook(book) {
     console.log('controller deleting book: ', book);
-    BooksService.destroy(book).then(onBookDeleteSuccess);
+    BooksService.remove({id: book._id}, onBookDeleteSuccess);
+    // OR
+    // book.$delete(onBookDeleteSuccess);
 
     function onBookDeleteSuccess(book){
       console.log('controller book deleted:', book);

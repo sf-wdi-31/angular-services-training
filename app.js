@@ -1,4 +1,4 @@
-angular.module('libraryApp', ['ngRoute'])
+angular.module('libraryApp', ['ngRoute', 'ngResource'])
        .config(config);
 
 
