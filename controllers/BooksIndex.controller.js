@@ -1,20 +1,17 @@
 angular.module('libraryApp')
   .controller('BooksIndexController', BooksIndexController);
 
-BooksIndexController.$inject=['$http'];
-function BooksIndexController($http) {
+BooksIndexController.$inject=['$http', 'BooksService'];
+function BooksIndexController($http,    BooksService) {
   var vm = this;
+  var books = [];
+  getBooks();
 
-  $http({
-    method: 'GET',
-    url: 'https://super-crud.herokuapp.com/books'
-  }).then(onBooksIndexSuccess, onError)
+  function getBooks() {
+    BooksService.getAll().then(function(data){
+      console.log('here\'s the get all books response data in the controller', data);
+      vm.books = data.books;
+    });
+  }
 
-  function onBooksIndexSuccess(response){
-    console.log('here\'s the get all books response data', response.data);
-    vm.books = response.data.books;
-  }
-  function onError(error){
-    console.log('there was an error: ', error);
-  }
-};
+}
