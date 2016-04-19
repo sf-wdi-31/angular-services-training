@@ -24,13 +24,12 @@ function BooksShowController($routeParams, $location, BooksService) {
   }
 
 
-  // move the rest of the $http code to the service
   function updateBook(book) {
     console.log('controller updating book: ', book);
     BooksService.update(book).then(onBookUpdateSuccess, onError);
 
     function onBookUpdateSuccess(book){
-      console.log('here\'s the UPDATED data for book', book._id, ':', book);
+      console.log('controller got updated data for book ', book._id, ':', book);
       vm.book = book;
       $location.path('/');
     }
@@ -40,11 +39,11 @@ function BooksShowController($routeParams, $location, BooksService) {
   }
 
   function deleteBook(book) {
-    console.log('deleting book: ', book);
+    console.log('controller deleting book: ', book);
     BooksService.destroy(book).then(onBookDeleteSuccess);
 
     function onBookDeleteSuccess(book){
-      console.log('book delete got:', book);
+      console.log('controller book deleted:', book);
       $location.path('/');
     }
   }

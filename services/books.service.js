@@ -13,12 +13,11 @@ function BooksService($http, $q) {
   self.destroy = destroy;
 
 
-
   function index() {
     console.log('someone requested all the books');
-
-    var def = $q.defer();  // create a new 'deferred'
-
+    // create a new 'deferred'
+    var def = $q.defer();
+    // fire off the request
     $http({
       method: 'GET',
       url: 'https://super-crud.herokuapp.com/books'
@@ -27,18 +26,19 @@ function BooksService($http, $q) {
     // we return the promise here - whenever it's complete any other .then's you attach will get run too
     return def.promise;
 
-    // note how these are defined within the body of getAll?  this gives them access to variables in getAll
-    // see lexical scope & closures https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
+    // note how these functions are defined within the body of another function?
+    // that gives them access to variables from that function
+    // - see lexical scope & closures https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
     function onBooksIndexSuccess(response){
       console.log('here\'s the get all books response data from the service', response.data);
       self.books = response.data.books;
-      // ok, we got data, resolve the deferred - we get to choose what we send on to the controller
+      // ok, we got data, resolve the deferred - at this point we get to choose what we send on to the controller
       def.resolve(self.books);
     }
     function onError(error){
       console.log('there was an error: ', error);
       self.books.error = {error: error};
-      // oh noes!  error - reject the deferred - we get to choose what we send on to the controller
+      // oh noes!  error - reject the deferred - at this point we get to choose what we send on to the controller
       def.reject(self.books.error);
     }
   }
@@ -63,16 +63,19 @@ function BooksService($http, $q) {
     // we return the promise here - whenever it's complete any other .then's you attach will get run too
     return def.promise;
 
-    // note how these are defined within the body of getAll?  this gives them access to variables in get
-    // see lexical scope & closures https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
+    // note how these functions are defined within the body of another function?
+    // that gives them access to variables from that function
+    // - see lexical scope & closures https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
     function onBookShowSuccess(response) {
       console.log('BooksService: here\'s the data for book', bookId, ':', response.data);
       self.book = response.data;
+      // ok, we got data, resolve the deferred - at this point we get to choose what we send on to the controller
       def.resolve(self.book);
     }
     function onError(error){
       console.log('there was an error: ', error);
       self.book = {error: error};
+      // oh noes!  error - reject the deferred - at this point we get to choose what we send on to the controller
       def.reject(self.book);
     }
   }
@@ -98,20 +101,26 @@ function BooksService($http, $q) {
       }
     }).then(onBookUpdateSuccess, onError);
 
+    // we return the promise here - whenever it's complete any other .then's you attach will get run too
     return def.promise;
 
+
+    // note how these functions are defined within the body of another function?
+    // that gives them access to variables from that function
+    // - see lexical scope & closures https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
     function onBookUpdateSuccess(response){
       console.log('here\'s the UPDATED data for book', bookToUpdate._id, ':', response.data);
       self.book = response.data;
+      // ok, we got data, resolve the deferred - at this point we get to choose what we send on to the controller
       def.resolve(self.book); // resolve the deferred and send along the book
     }
 
     function onError(error) {
       console.log('service reported error updating book', book);
       self.book = {error: error};
+      // oh noes!  error - reject the deferred - at this point we get to choose what we send on to the controller
       def.reject(self.book);
     }
-
   }
 
   /* * * * * * * * * * * * * * * *
@@ -128,17 +137,24 @@ function BooksService($http, $q) {
       url: 'https://super-crud.herokuapp.com/books/' + book._id,
     }).then(onBookDeleteSuccess, onError);
 
+    // we return the promise here - whenever it's complete any other .then's you attach will get run too
     return def.promise; // promise sent to "my client"
 
+
+    // note how these functions are defined within the body of another function?
+    // that gives them access to variables from that function
+    // - see lexical scope & closures https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
     function onBookDeleteSuccess(response){
       console.log('book delete response data:', response.data, this);
       self.book = {};
-      def.resolve({});
+      // ok, we got data, resolve the deferred - at this point we get to choose what we send on to the controller
+      def.resolve({});  // for delete we'll send an empty object
     }
 
     function onError(error) {
       console.log('service reported error deleting book', book);
       self.book = {error: error};
+      // oh noes!  error - reject the deferred - at this point we get to choose what we send on to the controller
       def.reject(self.book);
     }
 
