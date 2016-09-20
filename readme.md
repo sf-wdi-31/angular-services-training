@@ -1,11 +1,8 @@
 # <img src="https://cloud.githubusercontent.com/assets/7833470/10899314/63829980-8188-11e5-8cdd-4ded5bcb6e36.png" height="60"> Angular Services Training
 
-In this lab, you'll be creating a simple library app to keep track of books.
+### Overview
 
-**Objectives**
-
-Refactor code to move AJAX requests out of the controller.
-Practice using promises.
+Today we'll put those best practices into practice by refactoring part of a book app! We'll refactor code to move AJAX requests out of the controller, and we'll practice using promises.
 
 ### Investigate Existing Code
 
@@ -13,7 +10,8 @@ Practice using promises.
 1. Open your browser.  Open your JavaScript console. Verify which features of the site are working and which aren't.  You should see:
 	* Working: index, show, delete for books
 	* Not working: update for books <small style="color: red">You should see an error in the browser console</small>  
-1. Examine the `BooksIndexController` - observe that it does not use `$http`. Instead, it uses a `BookService` service.  
+1. Examine the `BooksIndexController` - observe that it does not use `$http`. Instead, it uses a `BookService` service.
+1. Find the code for this service. How is it connected to the controller?
 1. Take a look at `BookService`, especially its `query` method. Notice how it is handling `$http` requests for the controller.
 
 ### Refactor
@@ -25,7 +23,7 @@ Practice using promises.
 
 #### `BooksShowController`, `getBook`
 
-1. Refactor the `getBook` method in `BooksShowController` to **NOT** use `$http`; instead use `BookService.get(id)`, which returns a promise, and `.then`.
+1. Refactor the `getBook` method in `BooksShowController` to **NOT** use `$http`; instead, it should use `BookService.get(id)`. That function returns a promise, so remember to specify what happens `.then`.
 
 	> It might be helpful to look at the `BooksIndexController` or the `updateBook` method in this controller.
 	> The book service returns **only** the requested book when it resolves the promise. Log the returned value to the console to see the exact format.
